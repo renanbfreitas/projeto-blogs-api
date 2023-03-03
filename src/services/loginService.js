@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const jwtService = require('./jwtService');
+const jwt = require('../middlewares/jwt');
 
 const loginService = {
   login: async ({ email, password }) => {
@@ -9,7 +9,7 @@ const loginService = {
     }
     const datavalues = user.toJSON();
     const { id, image, ...userWithoutPassword } = datavalues;
-    return jwtService.createToken(userWithoutPassword);
+    return jwt.createToken(userWithoutPassword);
   },
 };
 

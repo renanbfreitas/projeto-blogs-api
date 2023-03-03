@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const jwtService = require('./jwtService');
+const jwt = require('../middlewares/jwt');
 
 const usersService = {
   create: async (body) => {
@@ -7,7 +7,11 @@ const usersService = {
     if (user) return { error: { code: 409, message: { message: 'User already registered' } } };
     await User.create(body);
     const { id, password, image, ...userWithouthPassword } = body;
-    return jwtService.createToken(userWithouthPassword);
+    return jwt.createToken(userWithouthPassword);
+},
+findAll: async () => {
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });
+  return users;
   },
 };
 
