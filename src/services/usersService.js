@@ -6,7 +6,7 @@ const usersService = {
     const user = await User.findOne({ where: { email: body.email } });
     if (user) return { error: { code: 409, message: { message: 'User already registered' } } };
     await User.create(body);
-    const { id, password, image, ...userWithouthPassword } = body;
+    const { password, image, ...userWithouthPassword } = body;
     return jwt.createToken(userWithouthPassword);
 },
 findAll: async () => {
