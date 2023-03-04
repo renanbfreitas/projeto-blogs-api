@@ -6,6 +6,10 @@ const categoriesService = {
     const datavalues = category.toJSON();
     return datavalues;
   },
+  findAll: async () => {
+    const categories = await Category.findAll();
+    return categories;
+  },
 };
 
 module.exports = categoriesService;
